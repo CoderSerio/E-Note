@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div v-for="(i, j) in notes" v-bind="i">
+    <div v-for="i in notes">
        <card :note="i"></card>
     </div>
   </div>
@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       notes: [
-              {title:'哈哈哈', content:'嘻嘻嘻'},
+              {title:'我的奋斗', content:'https://mod的企业"的小伙伴等待asdsadasd sadasd你的到来'},
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'},
@@ -28,3 +28,4 @@ export default {
   }
 }
 </script>
+
