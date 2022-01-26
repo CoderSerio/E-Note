@@ -19,8 +19,7 @@ export default {
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'}
-            ]
-                
+            ]       
     }
   },
   components: {
