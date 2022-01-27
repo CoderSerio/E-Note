@@ -5,6 +5,7 @@
     </div>
     <div v-for="(i, j, key) in searchNotes" :key="key" @click="edit(i)">
        <card :note="i"></card>
+
     </div>
     <div class="alert-box" v-if="swi">
       <div class="top">
@@ -13,7 +14,16 @@
       </div>
       <alert ref="alert" :actNote="activeNote"></alert>
     </div>
+
+    <div>
+	    <div class="plus">
+        <img src="../assets/img/加号.png" >
+      </div>
+    </div>
   </div>
+
+    
+
 </template>
 
 <script>
@@ -25,7 +35,11 @@ export default {
   data() {
     return {
       notes: [
-              {title:'我的奋斗', content:'https://mod的企业"的小伙伴等待asdsadasd sadasd你的到来'},
+              {title:'我的奋斗', content:`俞佑回来了。
+
+“只要我去找他，无论什么时候，他还是会等我的。“
+深了， 所以才令她觉得无所谓。
+`},
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'},
@@ -82,6 +96,7 @@ export default {
     border: 1px solid #fff;
     border-radius: 10px;
   }
+
   .alert-box {
     position: fixed;
     z-index: 100;
@@ -102,5 +117,18 @@ export default {
     position: absolute;
     left: 1rem;
   }
+  .plus{
+	  width: 100%;
+	  height: 5rem;
+	  line-height: 5rem;
+	   position: fixed;
+      bottom: 20px;  
+	  	    width: 160%;
+  }
+  .plus img{
+	  width: 5rem;
+	  height: 5rem;
+   }
+
 </style>
 
