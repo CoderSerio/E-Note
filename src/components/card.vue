@@ -51,6 +51,8 @@
 		color: #ffffff;
 		text-align: left;
 		width: 80%;
+	display:inline-block;
+		margin-top: 20px;
 	}
 	.wrapper h1::after{
 		content: '';
