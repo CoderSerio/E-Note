@@ -40,20 +40,29 @@ export default {
   data() {
     return {
       notes: [
-              {id:0, title:'我的奋斗', content:`俞佑回来了。“只要我去找他，无论什么时候，他还是会等我的。“深了， 所以才令她觉得无所谓。`},
               {id:1, title:'哈哈哈', content:'嘻嘻嘻'},
-              {id:2, title:'哈哈哈', content:'嘻嘻嘻'},
-              {id:3, title:'哈哈哈', content:'嘻嘻嘻'},
-              {id:4, title:'哈哈哈', content:'嘻嘻嘻'}
             ],
       searchStr: '',
       swi: false,
-      activeNote: {title:'未命名', content:''}
+      activeNote: {id:-1, title:'未命名', content:''}
     }
   },
   components: {
     card,
     alert
+  },
+  mounted() {
+        this.$axios.get('/back/get').then((res) => {
+            console.log('文章数据:',res.data)
+            for(let i of res.data.data) {
+              // console.log(i)
+              this.notes.push(JSON.parse(i))
+            }
+            console.log('notes:', this.notes)
+        }).catch((err) => {
+            console.warn('获取数据失败')
+            console.warn(err)
+        }) 
   },
   methods: {
     edit(i) {
@@ -102,12 +111,6 @@ export default {
       }
       // console.log(temp)
       return temp
-    }
-  },
-  mounted: {
-    getNotes() {
-        // 从本地目录获取文件
-        // axios.get()
     }
   }
 }

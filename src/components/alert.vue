@@ -10,6 +10,7 @@
 import E from 'wangeditor'
 
 // const fs = require('fs')
+let editor
 
 export default {
     name:'alert',
@@ -25,7 +26,7 @@ export default {
     },
     created(){},
     mounted(){
-        const editor = new E('#toolbar-container', '#text-container')
+        editor = new E('#toolbar-container', '#text-container')
         // editor.config.height = 1000
         editor.config.zIndex = 100
         // editor.config.placeholder = '空空如也'
@@ -63,10 +64,12 @@ export default {
             //         alert('文件写入成功')
             //     }
             // })
-            this.$axios.post('http://localhost:3456/set', JSON.stringify({
-                "id":   this.actNote.id,
-                "title":this.actNote.title,
-                "content": this.actNote.content    
+            this.content = editor.txt.html()
+            console.log(this.content)
+            this.$axios.post('/back/set', JSON.stringify({
+                "id":       this.actNote.id,
+                "title":    this.actNote.title,
+                "content":  this.content
             })).then((res) => {
                 console.log('成功接收到响应信息', res)
             }).catch((err) => {
