@@ -6,11 +6,19 @@
     <div v-for="(i, j, key) in searchNotes" :key="key" @click="edit(i)">
        <card :note="i"></card>
     </div>
+    <div class="alert-box" v-if="swi">
+      <div class="top">
+        <div class="back" @click="back()">返回</div>
+        <div class="title">{{activeNote.title}}</div>
+      </div>
+      <alert ref="alert" :actNote="activeNote"></alert>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import alert from '@/components/alert'
 import card from '@/components/card'
 export default {
   name: 'Home',
@@ -23,17 +31,25 @@ export default {
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'}
             ],
-      searchStr: '',      
-      search: []       
+      searchStr: '',
+      swi: false,
+      activeNote: {title:'未命名', content:''}
     }
   },
   components: {
-    card
+    card,
+    alert
   },
   methods: {
-    edit() {
-      console.log('功能开发ing')
-      alert('功能开发ing')
+    edit(i) {
+      // console.log('233')
+      this.activeNote = i
+      console.log(this.activeNote)
+      console.log(i)
+      this.swi = true      
+    },
+    back() {
+      this.swi = false
     }
   },
   computed: {
@@ -41,12 +57,12 @@ export default {
       let temp = [...this.notes]
       if(this.searchStr.trim()) {
         temp = this.notes.filter((p) => {
-          console.log(this.searchStr, p.title, p.content, p.title.indexOf(this.searchStr))
+          // console.log(this.searchStr, p.title, p.content, p.title.indexOf(this.searchStr))
           return  (p.title.indexOf(this.searchStr) !== -1) ||
                   (p.content.indexOf(this.searchStr) !== -1)
         })
       }
-      console.log(temp)
+      // console.log(temp)
       return temp
     }
   }
@@ -66,6 +82,25 @@ export default {
     border: 1px solid #fff;
     border-radius: 10px;
   }
-  
+  .alert-box {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(39, 136, 221, 0.438);
+  }
+  .top {
+    font-weight: 900;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    background-color: #fff;
+  }
+  .back {
+    position: absolute;
+    left: 1rem;
+  }
 </style>
 
