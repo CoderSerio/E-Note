@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <div class="top">
-      <input type="text" class="search" placeholder="搜索">
+      <input type="text" class="search" placeholder="搜索" v-model="searchStr">
     </div>
-    <div v-for="(i, j, key) in notes" :key="key" @click="edit(i)">
+    <div v-for="(i, j, key) in searchNotes" :key="key" @click="edit(i)">
        <card :note="i"></card>
     </div>
   </div>
@@ -22,7 +22,9 @@ export default {
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'},
               {title:'哈哈哈', content:'嘻嘻嘻'}
-            ]       
+            ],
+      searchStr: '',      
+      search: []       
     }
   },
   components: {
@@ -32,6 +34,20 @@ export default {
     edit() {
       console.log('功能开发ing')
       alert('功能开发ing')
+    }
+  },
+  computed: {
+    searchNotes() {
+      let temp = [...this.notes]
+      if(this.searchStr.trim()) {
+        temp = this.notes.filter((p) => {
+          console.log(this.searchStr, p.title, p.content, p.title.indexOf(this.searchStr))
+          return  (p.title.indexOf(this.searchStr) !== -1) ||
+                  (p.content.indexOf(this.searchStr) !== -1)
+        })
+      }
+      console.log(temp)
+      return temp
     }
   }
 }
