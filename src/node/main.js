@@ -28,7 +28,7 @@ const server = http.createServer((req, res) => {
         })
         req.on('end', () => {
             console.log('这是数据', JSON.parse(postData))
-            fs.writeFile(`E:/COMPILE/SUBLIME/BigFront/yb_elec_note/src/notes/${JSON.parse(postData).id}.json`, postData, err => {
+            fs.writeFile(`../yb_elec_note/src/notes/${JSON.parse(postData).id}.json`, postData, err => {
                 if(err) {
                     console.warn('数据写入失败', err)
                 } else {
