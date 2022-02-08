@@ -1,8 +1,9 @@
 <template>
-<div class="wrapper">
-    <h1>{{note.title}}</h1>
-    <p>{{note.content}}</p>
-</div>
+    <div class="wrapper">
+		<div class="pic"></div>
+		<h2>{{note.title}}</h2>
+		<p>{{note.content}}</p>
+    </div>
 </template>
 
 <script>
@@ -28,37 +29,45 @@
 </script>
 <style scoped>
 	*{
-		margin: 0px;
+	padding: 0; 
+	margin: 0px;
 	}
 	.wrapper{
 		width: 100%;
+		position: relative;
 		display: flex;
 		flex-wrap: wrap;
-		background-color: #9c9c9c;
+		background: linear-gradient(135deg,rgba(170, 166, 166, 0.3),rgba(97, 95, 95, 0.5),rgba(82, 80, 80, 0.8));
 		height: 10rem;
 		border-radius: 20px;
-		text-align: center;
-        margin: 5px 0 5px 0;
+		/* text-align: center; */
+		margin: 25px 0;
+		box-shadow: 1px #000;
 	}
-	.wrapper h1{
-		color: #ffffff;
-		margin-left: 2rem;
-		line-height: 5rem;
+	.wrapper .pic{
+		position: absolute;
+		right: 0;
+		top: -10px;
+		width: 2rem;
 		height: 2rem;
+		background-image: url(../assets/img/图片1.svg);
+	}
+	.wrapper h2{
+		margin: 0 2rem;
+		color: rgb(241, 226, 220);
+		line-height: 4rem;
+		height: 4rem;
+		border-bottom: 1px solid #000;
+		overflow: hidden;
 	}
 	.wrapper p{
-		margin-left: 2rem;
-		color: #ffffff;
+		text-indent: 2rem;
+		box-sizing: border-box;
+		color: #030303;
+		height: 5rem;
 		text-align: left;
-		width: 80%;
-	display:inline-block;
-		margin-top: 20px;
-	}
-	.wrapper h1::after{
-		content: '';
-		display: block;
-		background-color: #000000;
-		height: 1px;
-		margin-top: -15px;
+		width: 100%;
+		margin: 1rem;
+		overflow: hidden;
 	}
 </style>
