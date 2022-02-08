@@ -33,7 +33,7 @@
 	margin: 0px;
 	}
 	.wrapper{
-		width: 100%;
+		width: 90%;
 		position: relative;
 		display: flex;
 		flex-wrap: wrap;
@@ -41,7 +41,7 @@
 		height: 10rem;
 		border-radius: 20px;
 		/* text-align: center; */
-		margin: 25px 0;
+		margin: 25px auto;
 		box-shadow: 1px #000;
 	}
 	.wrapper .pic{
