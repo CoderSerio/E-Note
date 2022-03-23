@@ -1,8 +1,8 @@
 <template>
     <div class="wrapper">
 		<div class="pic"></div>
-		<h2>{{note.title}}</h2>
-		<p>{{note.content}}</p>
+		<h2>{{dealedTitle}}</h2>
+		<p>{{pureText}}</p>
     </div>
 </template>
 
@@ -23,7 +23,25 @@
     activated(){},
     updated(){},
     methods:{},
-    computed:{},
+    computed:{
+		pureText () {
+			// let reg = /[<][/]?\w+[/]?[>]/g
+			let reg = /<[^>]*>|<\/[^>]*>/gm
+			let res = this.note.content.replace(reg, '')
+			// console.log(res)
+			return res
+		},
+		dealedTitle () {
+			let title = this.note.title
+			// console.log(title)
+			if(title.length > 10) {
+				return title.slice(0, 10)  
+			} else {
+				return title
+			}
+
+		}
+	},
     watch:{},
  }
 </script>

@@ -3,13 +3,47 @@ module.exports = {
     devServer: {
       proxy: {  
         '/back': {
+          target: 'http://124.221.86.145:80',
+          changeOrigin: true,
+          ws: true,
+          pathRewrite: {
+            '^/back': ''
+          }
+        },
+        '/back_after': {
+          target: 'http://192.168.195.70:8080',
+          changeOrigin: true,
+          ws: true,
+          pathRewrite: {
+            '^/back_after': ''
+          }
+        },
+        '/back_pre1': {
             target: 'http://localhost:3456',
             changeOrigin: true,
             ws: true,
             pathRewrite: {
-                '^/back': ''
+                '^/back_pre1': ''
             }
+        },
+        '/yb': {
+          target: 'https://openapi.yiban.cn',
+          // target: 'https://oauth.yiban.cn/code/html',
+          // target: 'https://www.baidu.com',
+          changeOrigin: true,
+          ws: true,
+          pathRewrite: {
+            '^/yb': ''
+          }
         }
+        // ,
+        // 'https://oauth.yiban.cn/code': {
+        //   target:'https://oauth.yiban.cn/code',  
+        //   changeOrigin: true,
+        //   pathRewrite: {
+        //     '^/https://oauth.yiban.cn/code': ''
+        //   }
+        // }
       }
     }
   }
