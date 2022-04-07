@@ -67,7 +67,7 @@ export default {
     
     // 参数是一个回调，这就是 观察者模式
     getNotes (callback) {
-            this.$axios.get('/back/get', {
+            this.$axios.get('/back/back/get', {
               params: {
                 "yb_userid": this.yb_userid  
               }
@@ -151,17 +151,26 @@ export default {
   .home-top {
     height: 2rem;
     width: 100%;
-    
   }
   .search {
     margin: 1rem 0 1rem 0;
     height: 1rem;
     padding: 0.5rem 0 0.5rem 16px;
     width: 80%;
-    border: 0.5px solid rgba(51, 51, 51, 0.5);
-    border-radius: 20px;
+    border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.8);
+    /* box-shadow: inset 20px 20px 20px #bebebe,
+                inset -20px -20px 20px #fff;
+    background: #e0e0e0; */
+background: #ffffff;
+box-shadow: inset 10px 10px 15px #c4c4c4,
+            inset -10px -10px 15px #ffffff;
+    
+    
+    outline: none;
+    border: none;
   }
+ 
 
   .alert-box {
     position: fixed;
@@ -199,8 +208,7 @@ export default {
 	  width: 5rem;
 	  height: 5rem;
     border-radius: 50%;
-    border: 1px solid #d43e158a;
-    box-shadow: 1px 2px 10px #d43f15;
+    box-shadow: 1px 5px 20px #d43f15;
   }
 
 </style>

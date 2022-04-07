@@ -68,7 +68,7 @@ export default {
             let title = editor.txt.text().slice(0, 10)
             console.log(title)
             // debugger
-            this.$axios.post('/back/set', JSON.stringify({
+            this.$axios.post('/back/back/set', JSON.stringify({
                 "id":       this.actNote.id,
                 "yb_userid": this.actNote.yb_userid,
                 "title":    title,
@@ -120,6 +120,7 @@ export default {
         z-index:9999;
         font-weight: 800;
         color: #ff3700;
+        cursor: pointer;
     }
     .back {
         left: 1rem;
