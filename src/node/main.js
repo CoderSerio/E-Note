@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => {
     //         break
     //     }
     // }
-    if(path == '/set') {
+    if (path == '/set') {
         let postData = ''
         req.on('data', chunk => {
             console.log(chunk.toString())
@@ -57,7 +57,7 @@ const server = http.createServer((req, res) => {
                 res.end(JSON.stringify({code:'1'}))
             })
         })
-    } else if(path === '/get') {
+    } else if (path === '/get') {
         let ans = []
         let fileNum = 0 // 这是已经遍历的文件的数目
         let filePath = '../yb_elec_note/src/notes'
@@ -112,7 +112,7 @@ const server = http.createServer((req, res) => {
                 //     res.end(ans)
                 //     return
         }) 
-    }  else if(path === '/delete') {
+    } else if (path === '/delete') {
         let filePath = '../yb_elec_note/src/notes'
         fs.readdir(filePath, (err, files) => {
             if(err) {
@@ -146,7 +146,92 @@ const server = http.createServer((req, res) => {
                 })
             } 
         }) 
-    }   
+    } else if (path === '/userregister') {
+        let filePath = '../yb_elec_note/src/node/users_info.json'
+        let postDataJSON = ""
+        req.on('data', (chunk) => {
+            postDataJSON += chunk.toString()
+        })
+        req.on('end', () => {
+            let postData = JSON.parse(postDataJSON)
+            console.log(postData)
+            fs.readFile(filePath, (err, dataJSON) => {
+                if (err) {
+                    console.warn ('获取用户数据失败', err)
+                }
+                let data = JSON.parse(dataJSON)
+                data.forEach((oneUser) => {
+                    console.log(oneUser)
+                    if  (oneUser.email == data.email) {
+                        res.end(JSON.stringify({'msg':'注册失败，邮箱重复', 'code': 0}))
+                    }
+                })
+                data.push(postData)
+                fs.writeFile(filePath, JSON.stringify(data), (err) => {
+                    if(err) {
+                        console.log('注册失败，文件写入失败', err)
+                        res.end(JSON.stringify({msg:'注册失败', code:'0'}))
+                    } else {
+                        console.log('注册成功')
+                        res.end(JSON.stringify({msg:'注册成功', code:'1'}))
+                    }
+                })
+                res.end(JSON.stringify({'msg':'注册成功', 'code': 0}))
+            })
+        })
+        
+    } else if (path === '/userlogin') {
+        console.log('用户试图登录')
+        let filePath = '../yb_elec_note/src/node/users_info.json'
+        let postDataJSON = ""
+        req.on('data', (chunk) => {
+            postDataJSON += chunk.toString()
+        })
+        req.on('end', () => {
+            let postData = JSON.parse(postDataJSON)
+            console.log(postData)
+           
+            fs.readFile(filePath, (err, dataJSON) => {
+                if (err) {
+                    console.warn ('获取用户数据失败', err)
+                }
+                let data = JSON.parse(dataJSON)
+                data.forEach((oneUser) => {
+                    console.log(oneUser)
+                    if  (oneUser.email == data.email && oneUser.password == data.password) {
+                        res.end(JSON.stringify({'msg':'登录成功', 'code': 1}))
+                    }
+                })
+                res.end(JSON.stringify({'msg':'登录失败', 'code': 0}))
+            })
+        })
+    } else if (path === '/getVerification') {
+        let filePath = '../yb_elec_note/src/node/users_info.json'
+        let postDataJSON = ""
+        req.on('data', (chunk) => {
+            postDataJSON += chunk.toString()
+        })
+        req.on('end', () => {
+            let postData = JSON.parse(postDataJSON)
+            console.log(postData)
+            res.setHeader('Content-Type', 'charset=utf-8;application/json;')
+            fs.readFile(filePath, (err, dataJSON) => {
+                if (err) {
+                    console.warn ('获取用户数据失败', err)
+                }
+                let data = JSON.parse(dataJSON)
+                data.forEach((oneUser) => {
+                    console.log(oneUser)
+                    if  (oneUser.email == data.email && oneUser.password == data.password) {
+                        res.end(JSON.stringify({'msg':'登录成功', 'code': 1}))
+                    }
+                })
+                res.end(JSON.stringify({'msg':'登录失败', 'code': 0}))
+            })
+        })
+    } else {
+        res.end("404 NOT FOUND!!!")
+    }
 })
 server.listen(3456, () => {
     console.log('服务器正在3456端口上打开')

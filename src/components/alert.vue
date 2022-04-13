@@ -65,10 +65,10 @@ export default {
             // 不能以数字开头啊
             this.content = editor.txt.html()
             // let title = editor.txt.text().match((/^.*?\s/))[0] || '新建文件'
-            let title = editor.txt.text().slice(0, 10)
+            let title = editor.txt.text().slice(0, 7)
             console.log(title)
             // debugger
-            this.$axios.post('/back/back/set', JSON.stringify({
+            this.$axios.post('/back/set', JSON.stringify({
                 "id":       this.actNote.id,
                 "yb_userid": this.actNote.yb_userid,
                 "title":    title,

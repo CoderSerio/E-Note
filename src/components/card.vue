@@ -24,6 +24,7 @@
             desc: '易班多媒体电子笔记',
             image_url: '',
             share_url:'https://www.seriocb.top',
+			back:true
         }
       }
     },

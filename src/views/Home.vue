@@ -61,26 +61,68 @@ export default {
   },
   mounted() {
       // this.test()
+      // this.init(this.getNotes)
       this.getNotes()
   },
   methods: {
     
     // 参数是一个回调，这就是 观察者模式
-    getNotes (callback) {
-            this.$axios.get('/back/back/get', {
+    // init (callback) {
+      // 获取令牌CODE,由于是站内应用，所以直接返回TOKEN
+      // this.$axios.get('/yb/oauth/authorize', {
+      //   headers: {
+      //     "Access-Control-Allow-Headers": "Origin,X-Requested-With,Content-Type,Accept,Authorization",
+      //     "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS,PATCH"
+      //   },
+      //   params: {
+      //     "client_id": this.client_id,
+      //     "redirect_uri": this.redirect_uri,
+      //   }
+      // }).then((res) => {
+      //   this.code = res.data.code
+      //   console.log('获取令牌成功', res.data.code)
+        // location.href = res.request.responseURL
+        
+        // 利用Token获取用户的个人信息
+        // this.$axios.get('/yb/user/me', {
+        //     // 由于是站内应用，所以这里的code实际上是token
+        //   params: {
+        //     'access_token': this.code 
+        //   }
+        // }).then((res) => {
+        //   console.log('获取用户个人数据成功')
+        //   this.yb_userid = res.data.info.yb_userid
+        //   if (callback) {
+        //     callback ()
+        //   }
+        // }).catch((err) => {
+        //   console.warn('获取用户个人信息失败', err)
+        //   if (callback) {
+        //     callback ()
+        //   }
+        // })
+
+      // }).catch((err) => {
+      //   console.warn('获取令牌CODE失败', err)
+      //   if (callback) {
+      //     callback ()
+      //   }
+        // location.href ='https://oauth.yiban.cn/code/html?client_id=cab99d7a009889c1&redirect_uri=http://f.yiban.cn/iapp1040164'
+      // })
+    // },
+    // 获取文章数据
+    getNotes () {
+            this.$axios.get('/back/get', {
               params: {
                 "yb_userid": this.yb_userid  
               }
             }).then((res) => {
                 console.log('文章数据:',res.data)
                 for(let i of res.data.data) {
-                  // console.log(i)
+              
                   this.notes.push(JSON.parse(i))
                 }
-                // console.log('notes:', this.notes)
-                if(callback) {
-                  callback()
-                }
+              
             }).catch((err) => {
                 console.warn('获取文章数据失败')
                 console.warn(err)
@@ -162,9 +204,9 @@ export default {
     /* box-shadow: inset 20px 20px 20px #bebebe,
                 inset -20px -20px 20px #fff;
     background: #e0e0e0; */
-background: #ffffff;
-box-shadow: inset 10px 10px 15px #c4c4c4,
-            inset -10px -10px 15px #ffffff;
+    background: #ffffff;
+    box-shadow: inset 10px 10px 15px #c4c4c4,
+                inset -10px -10px 15px #ffffff;
     
     
     outline: none;
