@@ -153,30 +153,35 @@ const server = http.createServer((req, res) => {
             postDataJSON += chunk.toString()
         })
         req.on('end', () => {
+            // postData是要注册的用户信息
             let postData = JSON.parse(postDataJSON)
             console.log(postData)
             fs.readFile(filePath, (err, dataJSON) => {
                 if (err) {
                     console.warn ('获取用户数据失败', err)
                 }
+                // data是所有用户的信息
                 let data = JSON.parse(dataJSON)
+                let flag = true
                 data.forEach((oneUser) => {
-                    console.log(oneUser)
-                    if  (oneUser.email == data.email) {
-                        res.end(JSON.stringify({'msg':'注册失败，邮箱重复', 'code': 0}))
+                    console.log(oneUser.email, postData.email)
+                    if  (oneUser.email == postData.email) {
+                        res.end(JSON.stringify({'msg':'注册失败，邮箱重复', 'code': 0}))                        
+                        flag = false
                     }
                 })
-                data.push(postData)
-                fs.writeFile(filePath, JSON.stringify(data), (err) => {
-                    if(err) {
-                        console.log('注册失败，文件写入失败', err)
-                        res.end(JSON.stringify({msg:'注册失败', code:'0'}))
-                    } else {
-                        console.log('注册成功')
-                        res.end(JSON.stringify({msg:'注册成功', code:'1'}))
-                    }
-                })
-                res.end(JSON.stringify({'msg':'注册成功', 'code': 0}))
+                if (flag) {
+                    data.push(postData)
+                    fs.writeFileSync(filePath, JSON.stringify(data), (err) => {
+                        if(err) {
+                            console.log('注册失败，文件写入失败', err)
+                            res.end(JSON.stringify({msg:'注册失败', code:'0'}))
+                        } else {
+                            console.log('注册成功')
+                            res.end(JSON.stringify({msg:'注册成功', code:'1'}))
+                        }
+                    })
+                }
             })
         })
         

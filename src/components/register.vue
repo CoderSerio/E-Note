@@ -52,6 +52,8 @@
               sessionStorage.setItem('user_password', this.userInfo.password)
               alert('注册成功') // 这里先用着这个弹窗，反正到了易班那里会有易班的样式
               this.$router.push('/')
+            } else {
+              alert('注册失败,邮箱已被注册')
             }
           }).catch((err) => {
             alert('注册失败，请检查邮箱是否有效')
