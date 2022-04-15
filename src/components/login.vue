@@ -52,6 +52,8 @@
             sessionStorage.setItem('user_password', this.userInfo.password)
             alert('登录成功') // 这里先用着这个弹窗，反正到了易班那里会有易班的样式
             this.$router.push('/home')
+          } else {
+            alert('登录失败,请检查邮箱和密码是否正确')
           }
         }).catch((err) => {
           alert('登录失败，请检查邮箱和密码是否正确')
@@ -77,6 +79,7 @@
     box-shadow:  10px 10px 20px #a3a3a3,
                 -10px -10px 20px #ffffff;
     /* transition: 1s linear; */
+    /* animation: show2 1s linear forwards; */
   }
   .logo { 
     margin: 1rem 0 0 0 ;
@@ -96,6 +99,7 @@
   #form {
     height: 40%;
     text-align: center;
+    
   }
   .title {
     font-weight: 900;
@@ -111,6 +115,19 @@
       opacity: 1;
     }
   }
+  /* @keyframes show2 {
+    0% {
+      
+      background: linear-gradient(45deg, #ffffff, #a3a3a3);
+      box-shadow: inset -10px -10px 20px #a3a3a3,
+                  inset 10px 10px 20px #ffffff;
+    }
+    100% {
+      background: linear-gradient(45deg, #a3a3a3, #ffffff);
+      box-shadow:  10px 10px 20px #a3a3a3,
+                  -10px -10px 20px #ffffff;
+    }
+  } */
   input {
     width: 60%;
     background: transparent;

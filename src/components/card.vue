@@ -29,7 +29,8 @@
       }
     },
     created(){},
-    mounted(){},
+    mounted(){
+		},
     activated(){},
     updated(){},
     methods:{
@@ -67,9 +68,18 @@
 </script>
 <style scoped>
 	*{
-	padding: 0; 
-	margin: 0px;
+		padding: 0; 
+		margin: 0px;
+		animation: show 1s linear forwards;
 	}
+	@keyframes show {
+    	0% {
+      		opacity: 0;
+    	}
+    	100% {
+      		opacity: 1;
+    	}
+  	}
 	.wrapper{
 		width: 90%;
 		position: relative;
@@ -85,7 +95,7 @@
 		background: linear-gradient(45deg, #cccccc, #f3f3f3);
 		box-shadow:  7px -7px 14px #aaaaaa,
              		-7px 7px 14px #ffffff;
-		cursor: pointer;
+		/* cursor: pointer; */
 		transform-style: preserve-3d;
 		user-select: none;
 	}

@@ -2,6 +2,9 @@
   <div class="home">
     <div class="home-top">
       <input type="text" class="search" placeholder="搜索" v-model="searchStr">
+      <div class="set-btn" @click="gotoSet">
+        <img src="../assets/img/设置.png" alt="S">
+      </div>
     </div>
     
     <div v-for="(i, j, key) in searchNotes" :key="key" @click="edit(i)">
@@ -43,7 +46,7 @@ export default {
             ],
       searchStr: '',
       swi: false,
-      yb_userid: '39988545',
+      yb_userid: sessionStorage.getItem('user_email') || '',
       activeNote: {id:-1, yb_userid: this.yb_userid, title:'未命名', content:''},
       client_id: 'cab99d7a009889c1',
       client_secret: '3cbe532bdf86f9df02ed8ee98098a453',
@@ -170,6 +173,10 @@ export default {
       this.notes.push(alert.activeNote)
       console.log(this.notes)
       this.back()
+    },
+    gotoSet () {
+      console.log('设置')
+      this.$router.push('/set')
     } 
   },
   computed: {
@@ -194,11 +201,37 @@ export default {
     height: 2rem;
     width: 100%;
   }
+  .home-top>* {
+    display: inline-block;
+  }
+  .set-btn {
+    height: 4vh;
+    width: 4vh;
+    vertical-align: middle;
+    border-radius: 0.5rem;
+    border: 2px solid #aaa;
+    background: #e0e0e0;
+    box-shadow: 7px -7px 14px #aaa,
+                -7px 7px 14px #ffffff;
+    transition: border ease-in-out 0.2s;
+  }
+  .set-btn:active {
+    border: 2px solid #dd3700;
+    background: #e0e0e0;
+    box-shadow: inset -7px 7px 14px #aaa,
+                inset 7px -7px 14px #ffffff;
+  }
+  .set-btn img{
+    width: 100%;
+    height: 100%;
+    user-select: none;
+  }
+
   .search {
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 1rem 1rem 0;
     height: 1rem;
     padding: 0.5rem 0 0.5rem 16px;
-    width: 80%;
+    width: 70%;
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.8);
     /* box-shadow: inset 20px 20px 20px #bebebe,

@@ -29,6 +29,8 @@
           password: ''
         },
         verification: '',
+        time: 120,
+        hasGotVerification: false,
         test: true // 正式运行记得改成false
       }
     },
@@ -38,8 +40,23 @@
     updated(){},
     methods:{
       register () {
+        // 如果还没有请求过验证码，或者 还没有输入验证码
+        if (!this.hasGotVerification || !this.verification.trim('')) {
+          alert('请先输入验证码进行邮箱验证!')
+          return 
+        }
         console.log(this.userInfo)
-        if (this.test) {
+        // 三个框都要有内容才行
+        if (this.verification.trim('') && this.userInfo.email.trim('') && this.userInfo.password.trim('')) {
+          let emailRXP = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
+          let passwordRXP = /^[\w]{6,16}$/
+          if (!emailRXP.test(this.userInfo.email)) {
+            alert('请检测邮箱是否有效!')
+            return
+          } 
+          if (!passwordRXP.test(this.userInfo.password)) {
+            alert('密码长度为6-16位,且仅包含 数字和字母!')
+          }
           this.$axios.post('/back/userregister', {
             "email": this.userInfo.email,
             "password": this.userInfo.password,
@@ -53,34 +70,51 @@
               alert('注册成功') // 这里先用着这个弹窗，反正到了易班那里会有易班的样式
               this.$router.push('/')
             } else {
-              alert('注册失败,邮箱已被注册')
+              alert('注册失败, 邮箱已被注册 或 验证码错误')
             }
           }).catch((err) => {
             alert('注册失败，请检查邮箱是否有效')
             console.log(err)
           })
         } else {
-          alert('请检查输入内容是否完整且合法')
+          alert('请检查输入内容是否完整且有效')
         }
         
       },
+      // 发送验证码
       sendVerification () {
+        if (new Date().getTime() < this.time + 5 * 60 * 1000) {
+          let deltaTime = Math.floor((this.time + 5 * 60 * 1000 - new Date().getTime()) / 1000 / 60) 
+          alert('验证码已发送,请勿重复请求。请在'+ deltaTime + '分钟后重试')
+          return
+        }
+        // 邮箱和密码不为空
         if (this.userInfo.email.trim('') && this.userInfo.password.trim('')) {
           let emailRXP = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-          if (emailRXP.test(this.userInfo.email)) {
-            // this.$axios.post('/back/getVerification', {
-
-            // }).then((res) => {
-            //   if(res.data == 1) {
-            //      this.verification = res.data.code  // 获取验证码成功,请前往邮箱查看,本地存一份方便验证
-            //   }
-            // }).catch((err) => {
-            //   console.warn('获取验证码失败', err)
-            // })
-
-
+          if (!emailRXP.test(this.userInfo.email)) {
+            alert('请检测邮箱是否有效!')
           } else {
-            alert('邮箱格式不合法')
+            this.$axios.post('/back/sendverification', {
+              "email": this.userInfo.email.trim(''),
+              "date": new Date().getTime() // 观察过期时间
+            }).then((res) => {
+              
+              console.log(res.data)
+              // 获取验证码成功
+              if(res.data.code == 1) {
+                // 设置一个时间间隔
+                this.hasGotVerification = true,
+                // 前端更新进行请求的时间
+                this.time = new Date().getTime()
+                
+                alert('获取验证码成功，请前往邮箱查看')
+              } else {
+                alert("请求过于频繁，请稍后再试")
+              }
+            }).catch((err) => {
+              console.warn('获取验证码失败', err)
+            })
+
           }
         } else {
           alert('请先填写必要的信息')

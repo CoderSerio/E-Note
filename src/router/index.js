@@ -36,7 +36,17 @@ const routes = [
         }
       }
     ]
-  }
+  },
+  {
+    path: '/set',
+    name: 'Set',
+    component: () => import('../views/Set.vue')
+  },
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: () => import('../views/test.vue')
+  // }
 
 ]
 
