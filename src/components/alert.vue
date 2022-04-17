@@ -59,7 +59,12 @@ export default {
                     alert('禁止套娃')
                 } else {
                     console.log(src, window, window.top)
-                    editor.cmd.do('insertHTML', `<iframe src="${src}}" width="200%" height="100% max-height:70vh;min-height:30vh;" style="margin: 0 auto; overflow:scroll;">`)
+                    editor.cmd.do('insertHTML', 
+                    `
+                    <div style="height:80vh">
+                        <iframe src="${src}}" width="100%" height="100%" style="margin: 0 auto; overflow:scroll;scale(0.5);">
+                    </div>
+                    `) 
 
                 }
             }

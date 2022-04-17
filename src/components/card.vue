@@ -69,12 +69,17 @@
 			let reg = /<[^>]*>|<\/[^>]*>/gm
 			let res = this.note.content.replace(reg, '')
 			// console.log(res)
+			if (!res) {
+				res = '【图片/视频/网页】'
+			}
 			return res
 		},
 		dealedTitle () {
 			let title = this.note.title
 			// console.log(title)
-			if(title.length > 10) {
+			if (!title) {
+				return '【多媒体信息】'
+			} else if(title.length > 10) {
 				return title.slice(0, 10)  
 			} else {
 				return title

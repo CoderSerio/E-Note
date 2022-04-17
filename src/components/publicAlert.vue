@@ -92,11 +92,14 @@ export default {
         padding: 0.5rem;
         font-weight: 800;
     }
-    .content {
+    div.content {
         display: inline-block;
         overflow-y: scroll;
         max-height: 90vh;
-        padding: 1rem 1rem 10rem 1rem;
+        min-width: 90vw;
+        max-width: 90vw;
+        /* padding: 1rem 1rem 10rem 1rem; */
+        overflow: hidden;
     }
     
 </style>

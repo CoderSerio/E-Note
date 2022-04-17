@@ -37,15 +37,15 @@
     props:{},
     data(){
       return { 
-          userInfo: {
-            email: sessionStorage.getItem('user_email') || '',
-            regDate: '2022-4-14'
-          },    
-          listItem: [
-                {key: '版本号', value: 'V2.0.1', clickEvent: ''},
-                {key: '问题反馈', value: '>', clickEvent: this.devNotice},
-                {key: '数据统计', value: '>', clickEvent: this.devNotice}
-          ]
+        userInfo: {
+        email: sessionStorage.getItem('user_email') || '',
+        regDate: '易笔记'
+        },    
+        listItem: [
+            {key: '版本号', value: 'V2.1.1', clickEvent: ''},
+            {key: '常见问题', value: '>', clickEvent: this.gotoAbout},
+            {key: '数据统计', value: '>', clickEvent: this.gotoStatistics}
+        ]
       }
     },
     created(){},
@@ -58,6 +58,12 @@
         },
         devNotice () {
             alert('开发中')
+        },
+        gotoAbout () {
+            this.$router.push('/about')
+        },
+        gotoStatistics () {
+            this.$router.push('/statistics')
         },
         logout () {
             sessionStorage.clear()
@@ -123,7 +129,7 @@
     }
     .info-text {
         height: 15vh;
-        width: calc(100% - 15vh - 8rem);
+        width: calc(100% - 15vh - 7rem);
         padding: 1rem;
         border-radius: 3vh;
         background: linear-gradient(35deg, #cacaca, #f0f0f0);
@@ -139,6 +145,7 @@
         color: #fff;
         text-shadow: 2px 2px 6px #aaa;
         font-weight: 800;
+        font-size: 0.9rem;
         border-radius: 7vh;
         padding: 0.5em 1em;
         background: #e0e0e0;
@@ -184,7 +191,7 @@
         border-radius: 0.5em;
         background: #eee;
         box-shadow:  5px 5px 10px #b1b1b1,
-             -5px -5px 10px #ffffff;
+                    -5px -5px 10px #ffffff;
         color: #fff;
         text-shadow: 1px 1px 4px #000a;
         font-size: 1.2rem;
