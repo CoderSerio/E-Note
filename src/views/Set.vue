@@ -42,7 +42,7 @@
             regDate: '2022-4-14'
           },    
           listItem: [
-                {key: '版本号', value: 'V2.0.0', clickEvent: ''},
+                {key: '版本号', value: 'V2.0.1', clickEvent: ''},
                 {key: '问题反馈', value: '>', clickEvent: this.devNotice},
                 {key: '数据统计', value: '>', clickEvent: this.devNotice}
           ]

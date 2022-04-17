@@ -109,6 +109,8 @@ const server = http.createServer((req, res) => {
                                         if(data != undefined &&JSON.parse(data.toString()).yb_userid == yb_userid.replace('%40', '@') ) {
                                             ans.push(data.toString())
                                             
+                                        } else if (yb_userid == 'ALL_PUBLIC' && JSON.parse(data.toString()).public) {
+                                            ans.push(data.toString())
                                         }
                                         
                                         if(fileNum >= files.length) {
@@ -371,7 +373,31 @@ const server = http.createServer((req, res) => {
         
         
         
-    }
+    } else if (path === prep + '/share') {
+        // 不用单独写unshare了
+        let postDataJSON = ''
+        req.on('data', chunk => {
+            postDataJSON += chunk.toString()
+        })
+        req.on('end', () => {
+            let postData = JSON.parse(postDataJSON)
+            if (!postData.origin) {
+                JSON.stringify({msg:'非原创文章不允许二次发布！', code:'0'})
+            }
+            let userID = postData.yb_userid
+            let id = postData.id
+            console.log(postData)
+            // console.log('这是数据', JSON.parse(postData))
+            fs.writeFile(`./notes/${userID + '-' + id}.json`, postDataJSON, err => {
+                if(err) {
+                    console.warn('数据写入失败', err)
+                } else {
+                    console.log('数据写入成功')
+                }
+                res.end(JSON.stringify({code:'1'}))
+            })
+        })
+    } 
     
     else {
         res.end('404 NOT FOUND')

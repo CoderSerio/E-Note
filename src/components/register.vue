@@ -49,13 +49,14 @@
         // 三个框都要有内容才行
         if (this.verification.trim('') && this.userInfo.email.trim('') && this.userInfo.password.trim('')) {
           let emailRXP = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/
-          let passwordRXP = /^[\w]{6,16}$/
+          let passwordRXP = /^[a-zA-Z0-9]{6,16}$/
           if (!emailRXP.test(this.userInfo.email)) {
             alert('请检测邮箱是否有效!')
             return
           } 
           if (!passwordRXP.test(this.userInfo.password)) {
             alert('密码长度为6-16位,且仅包含 数字和字母!')
+            return
           }
           this.$axios.post('/back/userregister', {
             "email": this.userInfo.email,

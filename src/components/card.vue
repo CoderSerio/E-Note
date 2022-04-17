@@ -1,8 +1,13 @@
 <template>
     <div class="wrapper">
 		<!-- <div class="pic"></div> -->
-		<div class="share" @click.stop="share">
+		<div class="share" @click.stop="share(true)" v-if="!note.public && needBtn">
 			<div class="share-btn"></div>
+			<!-- <img src="../assets/img/分享.png" alt="分享"> -->
+		</div>
+
+		<div class="share" @click.stop="share(false)" v-if="note.public && needBtn">
+			<div class="share-btn share-btn2"></div>
 			<!-- <img src="../assets/img/分享.png" alt="分享"> -->
 		</div>
 		<h2>{{dealedTitle}}</h2>
@@ -15,7 +20,8 @@
 	name:"card",
     components:{},
     props:{
-        note: Object
+        note: Object,
+		needBtn: true
     },
     data(){
       return {
@@ -24,7 +30,8 @@
             desc: '易班多媒体电子笔记',
             image_url: '',
             share_url:'https://www.seriocb.top',
-			back:true
+			back:true,
+			
         }
       }
     },
@@ -34,15 +41,27 @@
     activated(){},
     updated(){},
     methods:{
-		// 暂时只做了分享到qq好友(仅有PC端可以使用)
-		share () {
-            //此处分享链接内无法携带图片   
-            location.href=(
-                "https://connect.qq.com/widget/shareqq/index.html?url=" +
-                encodeURIComponent(this.shareData.share_url) + "&title=" + this.shareData.title + "&desc=" + this.shareData.desc
-            );
+		// 分享到广场
+		share (pub) {
+			let str = '确定要取消发布吗？'
+			if (pub) {
+				str = '确定要发布到广场吗?'
+			}
+			if (confirm(str)) {
+				this.$axios.post('/back/share', JSON.stringify({
+					"id":       this.note.id,
+					"yb_userid": this.note.yb_userid,
+					"title":    this.note.title,
+					"content":  this.note.content,
+					"public": pub 
+				})).then((res) => {
+					console.log('成功接收到响应信息', res)
+					this.note.public = !this.note.public
+				}).catch((err) => {
+					console.warn(err)
+				})
+			}
         }, 
-		
 	},
     computed:{
 		pureText () {
@@ -114,7 +133,6 @@
 		background: linear-gradient(45deg, #f0f0f0, #cacaca);
 		box-shadow:  7px -7px 14px #a6a6a6,
              		-7px 7px 14px #ffffff;
-
 	}
 	.share-btn {
 		box-sizing: border-box;
@@ -137,7 +155,7 @@
 	.wrapper h2{
 		margin: 0 2rem;
 		color: rgb(241, 226, 220);
-		text-shadow: 2px 2px 3px #000;
+		text-shadow: 2px 0px 4px #000;
 		line-height: 4rem;
 		height: 4rem;
 		border-bottom: 1px solid #000;
@@ -154,5 +172,37 @@
 		margin: 1rem;
 		overflow: hidden;
 		line-height: 1.6rem;
+	}
+	.wrapper:active p {
+		font-size: 0.95em;
+		margin-top: 0.8rem;
+	}
+	.wrapper:active h2 {
+		margin: 0.1rem 2.2rem;
+		font-size: 1.4em;
+		text-shadow: 2px -1px 4px #000;
+	}
+	.wrapper:active .share {
+		width: 1.8rem;
+		height: 1.8rem;
+		right: 1.7rem;
+		top: 1.6rem;
+	}
+	.wrapper:active .share-btn {
+		width: 0.72rem;
+		height: 0.72rem;
+		border-top: 4px solid #eee;
+		border-right: 4px solid #eee;
+	}
+	.share-btn2 {
+		transform: rotate(-45deg);
+		border-top: 4px solid #ff3700;
+		border-right: 4px solid #dd3700;
+	}
+	.wrapper:active .share-btn2 {
+		width: 0.72rem;
+		height: 0.72rem;
+		border-top: 4px solid #ff3700;
+		border-right: 4px solid #dd3700;
 	}
 </style>

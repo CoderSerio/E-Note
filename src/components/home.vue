@@ -8,7 +8,7 @@
     </div>
     
     <div v-for="(i, j, key) in searchNotes" :key="key" @click="edit(i)">
-       <card :note="i"></card>
+       <card :note="i" :needBtn="true"></card>
     </div>
 
     <div class="alert-box" v-if="swi">
@@ -47,7 +47,7 @@ export default {
       searchStr: '',
       swi: false,
       yb_userid: sessionStorage.getItem('user_email') || '',
-      activeNote: {id:-1, yb_userid: this.yb_userid, title:'未命名', content:''},
+      activeNote: {id:-1, yb_userid: this.yb_userid, title:'未命名', content:'', public:false},
       client_id: 'cab99d7a009889c1',
       client_secret: '3cbe532bdf86f9df02ed8ee98098a453',
       redirect_uri: 'https://f.yiban.cn/iapp1040164',
@@ -186,7 +186,7 @@ export default {
         temp = this.notes.filter((p) => {
           // console.log(this.searchStr, p.title, p.content, p.title.indexOf(this.searchStr))
           return  (p.title.indexOf(this.searchStr) !== -1) ||
-                  (p.content.indexOf(this.searchStr) !== -1)
+                  (p.content.replace(/<[^>]*>|<\/[^>]*>/gm, '').indexOf(this.searchStr) !== -1)
         })
       }
       // console.log(temp)
@@ -225,6 +225,7 @@ export default {
     width: 100%;
     height: 100%;
     user-select: none;
+    pointer-events:none;
   }
 
   .search {

@@ -26,4 +26,24 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+.w-e-panel-tab-content .eleImg {
+    width: 40px;
+}
+/* .w-e-text>* {
+  box-sizing: border-box;
+} */
+.w-e-panel-tab-content {
+  user-select: none !important;
+}
+.w-e-text>*>*{
+  /* background: red;
+  border: 20px solid olive; */
+  max-width: 90% !important;
+  box-sizing: border-box;
+  margin: 1rem 1rem 2rem !important;
+  /* margin: 1rem 3rem 1rem 3rem; */
+}
+.w-e-text>*:last-child {
+  margin-bottom: 10vh;
+}
 </style>
