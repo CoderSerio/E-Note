@@ -125,6 +125,7 @@ export default {
                 let content = this.actNote.content
                 console.log(content)
                 content = content.replace(/src="/g, 'src="https:')
+                content = content.replace(/src="https:https:/g, 'src="https:')
                 content = content.replace(/"/g, '\'')
                 console.log(content)
                 this.produceFile(name, content)

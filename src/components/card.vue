@@ -73,6 +73,7 @@
 			// let reg = /[<][/]?\w+[/]?[>]/g
 			let reg = /<[^>]*>|<\/[^>]*>/gm
 			let res = this.note.content.replace(reg, '')
+			res = res.replace(/&nbsp;/g, '')
 			// console.log(res)
 			if (!(res.trim(''))) {
 				res = '【图片/视频/网页】'
@@ -81,6 +82,7 @@
 		},
 		dealedTitle () {
 			let title = this.note.title
+			title = title.replace(/&nbsp;/g, '')
 			// console.log(title)
 			if (!(title.trim(''))) {
 				return '【多媒体信息】'

@@ -208,6 +208,9 @@ export default {
                     { alt: '[无语]', src: `https://epic-1306658948.cos.ap-chengdu.myqcloud.com/panda_head/shit.png` },
                     { alt: '[滚]', src: `https://epic-1306658948.cos.ap-chengdu.myqcloud.com/panda_head/go_away.jpg` },
                     { alt: '[恰恰相反]', src: `https://epic-1306658948.cos.ap-chengdu.myqcloud.com/panda_head/reverse.jpg` },
+                    { alt: '[666]', src: `https://epic-1306658948.cos.ap-chengdu.myqcloud.com/panda_head/666.jpg` },
+                    { alt: '[分析]', src: `https://epic-1306658948.cos.ap-chengdu.myqcloud.com/panda_head/analysis.jpg` },
+                    { alt: '[写代码]', src: `https://epic-1306658948.cos.ap-chengdu.myqcloud.com/panda_head/code.jpg` },
                 ]
             },
             {

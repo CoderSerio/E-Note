@@ -422,27 +422,7 @@ const server = http.createServer((req, res) => {
                 res.end(JSON.stringify({code:'1'}))
             })
         })
-    } else if (path === prep + '/download') {
-        let postDataJSON = ''
-        let filePath = './downloads/'
-        req.on('data', (chunk) => {
-            postDataJSON += chunk.toString()
-        })
-        req.on('end', () => {
-            let postData = JSON.parse(postDataJSON)
-            let userId = postData.yb_userid
-            let id = postData.id
-            fs.writeFile(`${filePath + userId + '-' + id}.html`, JSON.stringify(postData.content), (err) => {
-                if(err) {
-                    console.warn('下载文件生成失败', err)
-                } else {
-                    console.log('下载文件生成成功')
-                }
-                res.end(JSON.stringify({code:'1'}))
-            })
-        })
-    }
-    
+    } 
     else {
         res.end('404 NOT FOUND')
     }
