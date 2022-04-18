@@ -43,6 +43,10 @@
     methods:{
 		// 分享到广场
 		share (pub) {
+			if(this.note.origin && sessionStorage.getItem('user_email') != this.note.origin) {
+				alert('克隆内容禁止二次转发!')
+				return 
+			}
 			let str = '确定要取消发布吗？'
 			if (pub) {
 				str = '确定要发布到广场吗?'
@@ -53,7 +57,8 @@
 					"yb_userid": this.note.yb_userid,
 					"title":    this.note.title,
 					"content":  this.note.content,
-					"public": pub 
+					"public": pub,
+					"origin": this.note.origin ? this.note.origin : sessionStorage.getItem('user_email')   
 				})).then((res) => {
 					console.log('成功接收到响应信息', res)
 					this.note.public = !this.note.public
@@ -69,7 +74,7 @@
 			let reg = /<[^>]*>|<\/[^>]*>/gm
 			let res = this.note.content.replace(reg, '')
 			// console.log(res)
-			if (!res) {
+			if (!(res.trim(''))) {
 				res = '【图片/视频/网页】'
 			}
 			return res
@@ -77,7 +82,7 @@
 		dealedTitle () {
 			let title = this.note.title
 			// console.log(title)
-			if (!title) {
+			if (!(title.trim(''))) {
 				return '【多媒体信息】'
 			} else if(title.length > 10) {
 				return title.slice(0, 10)  
@@ -124,7 +129,7 @@
 		user-select: none;
 	}
 	.wrapper:active {
-		box-shadow: inset -7px 7px 14px #aaaaaa,
+		box-shadow: inset -7px 7px 14px #bbbbbb,
              		inset 7px -7px 14px #ffffff;
 	}
 	.wrapper .share{

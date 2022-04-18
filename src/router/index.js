@@ -78,7 +78,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, go) => {
-  console.log(from, to)
+  // console.log(from, to)
   if (sessionStorage.getItem('user_email') || (to.fullPath == '/' || to.fullPath == '/register')) {
     go()
   } else {

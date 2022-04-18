@@ -42,6 +42,7 @@ export default {
       swi: false,
       yb_userid: sessionStorage.getItem('user_email') || '',
       activeNote: {id:-1, yb_userid: this.yb_userid, title:'未命名', content:'', public: true, origin: true},
+
     }
   },
   components: {

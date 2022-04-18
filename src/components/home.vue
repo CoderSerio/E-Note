@@ -20,7 +20,7 @@
       <alert ref="alert" :actNote="activeNote" :ID="createId()" @back="back" @del="del"></alert>
     </div>
 
-    <div @click="edit({id:-1 , yb_userid: yb_userid, title:'新建文件', content:''})">
+    <div @click="edit({id:-1 , yb_userid: yb_userid, title:'新建文件', content:'', origin: yb_userid})">
 	    <div class="plus">
         <img src="../assets/img/加号.png">
       </div>
@@ -47,7 +47,7 @@ export default {
       searchStr: '',
       swi: false,
       yb_userid: sessionStorage.getItem('user_email') || '',
-      activeNote: {id:-1, yb_userid: this.yb_userid, title:'未命名', content:'', public:false},
+      activeNote: {id:-1, yb_userid: this.yb_userid, title:'未命名', content:'', public:false, origin: ''},
       client_id: 'cab99d7a009889c1',
       client_secret: '3cbe532bdf86f9df02ed8ee98098a453',
       redirect_uri: 'https://f.yiban.cn/iapp1040164',

@@ -288,17 +288,15 @@ export default {
                 "title":    title,
                 "content":  this.content,
                 "public": false, // 后面改成false,
-                "origin": true // 是否为原创 
+                "origin": this.actNote.origin ? this.actNote.origin : sessionStorage.getItem('user_email') 
             })).then((res) => {
-                console.log('成功接收到响应信息', res)
+                // console.log('成功接收到响应信息', res)
                 this.$emit('back')
             }).catch((err) => {
                 console.warn(err)
             })
         },
-        // deleteFiles (marker, that) {
-            
-        // },
+        
         del () {
             if(confirm("确定要删除这篇笔记吗")) {
                 let that = this
@@ -310,42 +308,7 @@ export default {
                 }).catch((err) => {
                     console.warn(err)
                 })
-                // this.cos.deleteObject({
-                //     Bucket: 'epic-1306658948', // 存储桶名称
-                //     Region: 'ap-chengdu', // 存储桶地域
-                //     Key: sessionStorage.getItem('user_email') + '/' + that.actNote.id 
-                // }, function(err, data) {
-                //     console.log(err || data);
-                // })
-                // this.deleteFiles (marker, that)
-                // that.cos.getBucket({
-                //     Bucket: 'epic-1306658948', /* 填入您自己的存储桶，必须字段 */
-                //     Region: 'ap-chengdu',  /* 存储桶所在地域，例如ap-beijing，必须字段 */
-                //     Prefix: sessionStorage.getItem('user_email') + '/' + that.actNote.id + '/',
-                //     Marker: marker,
-                //     MaxKeys: 1000,
-                // }, function (listError, listResult) {
-                //     if (listError) 
-                //         return console.log('list error:', listError);
-                //     var nextMarker = listResult.NextMarker;
-                //     var objects = listResult.Contents.map(function (item) {
-                //         return {Key: item.Key}
-                //     });
-                //     that.cos.deleteMultipleObject({
-                //         Bucket: bucket,
-                //         Region: region,
-                //         Objects: objects,
-                //     }, function (delError, deleteResult) {
-                //         if (delError) {
-                //             console.log('delete error', delError);
-                //             console.log('delete stop');
-                //         } else {
-                //             console.log('delete result', deleteResult);
-                //             if (listResult.IsTruncated === 'true') deleteFiles(nextMarker);
-                //             else console.log('delete complete');
-                //         }
-                //     });
-                // });
+              
                 this.$emit('back')
                 this.$emit('del', this.actNote.id) 
             }

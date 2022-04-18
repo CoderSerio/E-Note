@@ -75,7 +75,8 @@ const server = http.createServer((req, res) => {
                 res.end(JSON.stringify({code:'1'}))
             })
         })
-    } else if (path ===  prep + '/get') {
+    } else if (path ===  prep + '/get'
+    ) {
         yb_userid =  query.split('=')[1]
         
         let ans = []
@@ -397,7 +398,50 @@ const server = http.createServer((req, res) => {
                 res.end(JSON.stringify({code:'1'}))
             })
         })
-    } 
+    } else if (path === prep + '/clone') {
+        let postDataJSON = ''
+        req.on('data', (chunk) => {
+            postDataJSON += chunk.toString()
+        })
+        req.on('end', () => {
+            let postData = JSON.parse(postDataJSON)
+            console.log(postData)
+            console.log(postData)
+            let id = postData.userId // 这个是下载者的id,后面的是文章id
+            postData.note.public = false // 不是原创内容禁止二次发布
+            // postData.note.origin = postData.note.yb_userid // 原作者id
+            postData.note.yb_userid = id
+            postData.note.id = Math.floor(Math.random() * 1000) 
+            // console.log('这是数据', JSON.parse(postData))
+            fs.writeFile(`./notes/${id + '-' + postData.note.id}.json`, JSON.stringify(postData.note), err => {
+                if(err) {
+                    console.warn('数据克隆失败', err)
+                } else {
+                    console.log('数据克隆成功')
+                }
+                res.end(JSON.stringify({code:'1'}))
+            })
+        })
+    } else if (path === prep + '/download') {
+        let postDataJSON = ''
+        let filePath = './downloads/'
+        req.on('data', (chunk) => {
+            postDataJSON += chunk.toString()
+        })
+        req.on('end', () => {
+            let postData = JSON.parse(postDataJSON)
+            let userId = postData.yb_userid
+            let id = postData.id
+            fs.writeFile(`${filePath + userId + '-' + id}.html`, JSON.stringify(postData.content), (err) => {
+                if(err) {
+                    console.warn('下载文件生成失败', err)
+                } else {
+                    console.log('下载文件生成成功')
+                }
+                res.end(JSON.stringify({code:'1'}))
+            })
+        })
+    }
     
     else {
         res.end('404 NOT FOUND')
