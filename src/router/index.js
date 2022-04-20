@@ -7,6 +7,7 @@ import Register from '@/components/register.vue'
 import Main from "../views/Main.vue"
 import Home from '@/components/home.vue'
 import Public from '@/components/public.vue'
+import Statistics from '@/views/Statistics'
 
 Vue.use(VueRouter)
 
@@ -69,7 +70,7 @@ const routes = [
   { 
     path: '/statistics',
     name: 'Statistics',
-    component: () => import('../views/Statistics.vue')
+    component: Statistics
   }
 
 ]

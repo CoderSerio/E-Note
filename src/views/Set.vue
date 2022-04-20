@@ -42,7 +42,7 @@
         regDate: '易笔记'
         },    
         listItem: [
-            {key: '版本号', value: 'V2.2.1', clickEvent: ''},
+            {key: '版本号', value: 'V2.3.0', clickEvent: ''},
             {key: '常见问题', value: '>', clickEvent: this.gotoAbout},
             {key: '数据统计', value: '>', clickEvent: this.gotoStatistics}
         ]
@@ -67,6 +67,7 @@
         },
         logout () {
             sessionStorage.clear()
+            // this.$loginFlag = false
             this.$router.push('/')
         }
     },

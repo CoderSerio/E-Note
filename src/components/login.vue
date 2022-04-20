@@ -51,6 +51,7 @@
             sessionStorage.setItem('user_email', this.userInfo.email)
             sessionStorage.setItem('user_password', this.userInfo.password)
             alert('登录成功') // 这里先用着这个弹窗，反正到了易班那里会有易班的样式
+            // this.$loginFlag = true
             this.$router.push('/home')
           } else {
             alert('登录失败,请检查邮箱和密码是否正确')

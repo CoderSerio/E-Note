@@ -5,7 +5,7 @@ import axios from 'axios'
 
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
-
+// Vue.prototype.$loginFlag = false
 
 
 new Vue({
