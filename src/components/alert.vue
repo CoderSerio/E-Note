@@ -62,7 +62,7 @@ export default {
                     editor.cmd.do('insertHTML', 
                     `
                     <div style="height:80vh">
-                        <iframe src="${src}}" width="100%" height="100%" style="margin: 0 auto; overflow:scroll;scale(0.5);">
+                        <iframe src="${src}" width="100%" height="100%" style="margin: 0 auto; overflow:scroll;scale(0.5);">
                     </div>
                     `) 
 
