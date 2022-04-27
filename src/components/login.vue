@@ -5,13 +5,13 @@
         </div>
         <h2 class="title">WELCOME</h2>
         <div id="form">
-          <input type="email" placeholder="Email" v-model="userInfo.email">
-          <input type="password"  placeholder="Password" v-model="userInfo.password">
+          <input type="email" placeholder="邮箱" v-model="userInfo.email">
+          <input type="password"  placeholder="密码" v-model="userInfo.password">
         </div>
 
         <div class="btns">
-          <button class="btn login" @click="login">LOGIN</button>
-          <router-link to="/register" class="btn register">REGISTER</router-link>
+          <button class="btn login" @click="login">登录</button>
+          <router-link to="/register" class="btn register">注册</router-link>
         </div>
     </div>
 </template>

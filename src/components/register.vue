@@ -5,14 +5,15 @@
         </div>
         <h2 class="title">JOIN US</h2>
         <div id="form">
-          <input type="email"  placeholder="Email" v-model="userInfo.email">
-          <input type="password"  placeholder="Password" v-model="userInfo.password">
-          <input type="text" placeholder="Verification" v-model="verification" id="verification" >
-          <button id="send-verification" @click="sendVerification">SEND</button>
+          <input type="email"  placeholder="邮箱" v-model="userInfo.email">
+          <input type="password"  placeholder="密码" v-model="userInfo.password">
+          <br>
+          <input type="text" placeholder="验证码" v-model="verification" id="verification" >
+          <button id="send-verification" @click="sendVerification">获取验证码</button>
         </div>
         <div class="btns">
-          <button class="btn login" @click="register">REGISTER</button>
-          <router-link to="/" class="btn register">BACK</router-link>
+          <button class="btn login" @click="register">注册</button>
+          <router-link to="/" class="btn register">返回</router-link>
         </div>
     </div>
 </template>
@@ -209,12 +210,12 @@
     color: #000e;
   }
   #verification {
-    width: 40%;
+    width: 27%;
   }
   button#send-verification {
-    width: 17%;
+    width: 30%;
     margin: 0 0 0 5%;
-    font-size: 1rem;
+    font-size: 0.5rem;
     background-color: #fff;
     color: #000e;
   }

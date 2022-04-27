@@ -104,7 +104,7 @@ export default {
         },
         clone () {
             if ( sessionStorage.getItem('user_email') == this.actNote.yb_userid) {
-                aler('克隆失败，发布者本人不克隆!')
+                alert('克隆失败，发布者本人不克隆!')
                 return 
             }
             if (confirm('确定要将这篇笔记保存到个人笔记中吗？')) {
