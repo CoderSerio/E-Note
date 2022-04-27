@@ -21,7 +21,7 @@
                             </div>
                             <!-- 普通用户权限操作 -->
                             <div class="operator-btn clone-btn"  @click="clone">
-                                克隆
+                                转载
                             </div>
                             <div class="operator-btn download-btn" @click="download">
                                 下载为html
@@ -104,7 +104,7 @@ export default {
         },
         clone () {
             if ( sessionStorage.getItem('user_email') == this.actNote.yb_userid) {
-                alert('克隆失败，发布者本人不克隆!')
+                alert('转载失败，不能转载自己的文章!')
                 return 
             }
             if (confirm('确定要将这篇笔记保存到个人笔记中吗？')) {
@@ -112,10 +112,10 @@ export default {
                     "note": this.actNote,
                     "userId": sessionStorage.getItem('user_email')  
                 })).then((res) => {
-                    alert('克隆成功，请返回个人笔记查看')
+                    alert('转载成功，请返回个人笔记查看')
                     console.log(res.data)
                 }).catch((err) => {
-                    console.log('文章克隆失败')
+                    console.log('文章转载失败')
                 })
             }
         },
